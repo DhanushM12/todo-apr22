@@ -5,7 +5,6 @@ import Task from './Task'
 function TodoMain() {
     const [task, setTask] = useState("")
     const [taskArray, setTaskArray] = useState([])
-    const [abc, setabc] = useState("")
     const onTaskChange = (event) => {
         setTask(event.target.value)
     }
@@ -18,18 +17,24 @@ function TodoMain() {
             setTask("")
         }
     }
-   const onAbc = () => {
-    setabc("1");
-   }
+
+    const deleteTask = (taskName) => {
+        const newArr = taskArray.filter((name) => name !== taskName)
+        setTaskArray(newArr);
+    }
+
   return (
     <div>
-       {console.log("print")}
         <h1>My Todo List</h1>
         <input type="text" value={task} placeholder="Add task" onChange={onTaskChange} />
         <button onClick={addTask}>Add</button>
         <ol>
             {taskArray.map((val, index) => {
-                return <Task key={index} text={val} />
+                return <Task 
+                        key={index} 
+                        text={val} 
+                        onDeleteTask={() => deleteTask(val)}
+                        />
             })}
         </ol>
     </div>
